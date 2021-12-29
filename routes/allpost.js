@@ -6,7 +6,7 @@ const Note = require('../models/Note.js');
 
 router.get('/fetchall',  async (req, res) => {
     try {
-        const notes = await Note.find({ date: -1 });
+        const notes = await Note.find().sort({date: -1});
         res.json(notes)
     } catch (error) {
         console.error(error.message);
