@@ -96,5 +96,21 @@ router.delete('/deletenote/:id', fetchUser, async (req, res) => {
     }
 })
 
+router.post("/getuser", fetchUser, async (req, res) => {
+    try {
+      userId = req.user.id;
+      const user = await User.findById(userId)
+        .select("-password")
+        .select("-date")
+        .select("-_id")
+        .select("-__v")
+        .select("-email");
+      res.send(user);
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send("Enternal sever error");
+    }
+  });
+
 
 module.exports = router;
